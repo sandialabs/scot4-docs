@@ -1,0 +1,6 @@
+baseURL = 'https://getscot.sandia.gov/'
+languageCode = 'en-us'
+title = 'Sandia Cyber Omni Tracker'
+theme = 'hugo-theme-relearn'
+[params]
+    themeVariant = ['zen-dark', 'zen-light']

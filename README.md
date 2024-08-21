@@ -1,2 +1,5 @@
 # scot4-docs
-Documentation for SCOT 4
+
+
+This repo will hold all the documentation assets.
+Will use Hugo for static site generation
