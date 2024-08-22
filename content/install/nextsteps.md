@@ -8,6 +8,10 @@ weight = 4
 
 Please take a moment to join the [community](/community) of SCOT users and developers.  
 
+## Migration from SCOT 3.
+
+To view instructions on how to migrate from SCOT, see [migration](/install/migration).
+
 ## Configuration
 
 Final configuration of SCOT is performed using the Web user interface. For the purposes of this documentation we will assume that the URL of your SCOT instance is `scot4.example.com`.

@@ -7,16 +7,16 @@ weight = 2
 Having a common vocabulary is important to improve understanding.  Many terms in cyber security are overloaded with meanings and often have different connotations to different teams.  The SCOT developers have attempted to pick terms carefully to avoid these problems but sometimes it is unavoidable.  This section provides context for common terms used through the documentation.
 
 ## Analyst
-Broadly, a user of SCOT.  Someone who is performing a cyber security function such as researching threat Intel or responding to alert.
+Broadly, a user of SCOT.  Someone who is performing a cyber security function such as researching threat Intel or responding to alerts.
 
 ## Incident Response
-The process of triaging, investigating, and remediating events of cyber security concerns.  One example would be looking at a list of alerts from an intrusion detection system to find if a compromise of security has been attempted or succeeded.
+The process of triaging, investigating, and remediating events of cyber security concerns.  For example, looking at a list of alerts from an intrusion detection system to see if a compromise of security has been attempted or succeeded.
 
 ## Incident Response Team
 The team of analysts responsible for handling cyber security investigation and remediation.
 
 ## (Cyber) Threat Intelligence
-The process of researching potential cyber threats and threat actors.
+The process of researching and analyzing potential cyber threats and threat actors.
 
 ## Threat Intel Team
 Team responsible for collecting and analyzing cyber threat intelligence.

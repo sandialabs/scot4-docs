@@ -63,7 +63,7 @@ Here are the options supported:
 
 ### Option Notes
 
-* Replica count defaults to 1.  This is fine to kick the tires by a single user or two.  If you are deploying this for use by multiple users, increase this value to 6 to 8
+* Replica count defaults to 1.  This is fine to kick the tires by a single user or two.  If you are deploying this for use by multiple users, increase this value higher.  A replica count of 8 can easily handle up to 30 concurrent users.
 * Setting a SQLALCHEMY_DATABASE_URI using -d option, informs the installer that you wish to use an existing database running somewhere else.  See SQLAlchemy docs for specifics on the URI format.  If you do not set this, the installer will bring up a pod that runs a mysql database and use that.  Data will persist in the database, but it is recommended to have DBA support to ensure correct backup and that the DB is configured to handle the expected load.
 * PROXY settings: If your SCOT instance runs behind a proxy to the internet, you can configure the appropriate values this way.  For SCOT on stand alone networks with no internet access, you can omit these settings.
 * Container registry, registry secret and registry secret name are advanced options for those who wish to build their own containers/pods from the sources.  These settings allow you to point to an alternate registry to obtain the containers/pods.

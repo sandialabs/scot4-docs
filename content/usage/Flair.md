@@ -10,7 +10,7 @@ One of SCOT's unique features is the ability to automatically highlight and cros
 
 ## Core Entities
 
-Entities can be thought of a collection on IOC (indicators of compromise) but are not limited to just IOC's.  The core set of entities that the flair process detects include:
+Entities can be thought of a collection of IOC (indicators of compromise) but are not limited to just IOC's.  The core set of entities that the flair process detects include:
 
 * IPv4 Addresses
 * IPv6 Addresses
@@ -29,6 +29,8 @@ Entities can be thought of a collection on IOC (indicators of compromise) but ar
 ## User Defined Entities
 
 In addition to the Core set, SCOT4 users can add "User Defined" Entities based on string matches.  While viewing an Entry, a user can click and highlight any string within the Entry.  A pop-up window will then ask the user to confirm creation of user defined entity and ask what [Entity Class](/about/terminology/#entity-class) to assign to this item.  
+
+Note: Choose your user defined entities carefully.  5 minutes after introducing this feature someone highlighted the word "the" (user defined flair has a 3 character minimum) and created an entity from it.  This brought the system to a crawl while it dutifully began finding all instances of "the" in the data and flaired them.  Cleanup was not fun.  SCOT follows the Unix philosophy of giving you enough rope to shoot yourself in the foot. Consider yourself warned!
 
 ## Entity Icons
 

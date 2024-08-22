@@ -23,16 +23,16 @@ In recognition of the importance of SCOT to the cyber security efforts to Sandia
 
 I'd like to personally thank and recognize the amazing engineers that I have had the privilege to work with while creating SCOT.
 
-Scot 3.x Engineers
+### Scot 3 Engineers
 * Nick Peterson
 * Nick Georgieff
 * Bryce Montoya
 * Javier Chavez
 
-Scot 4.0 Engineers
+### Scot 4 Engineers
 * Greg Walkup
 * Blake Moss
-* Joey Dickenson
+* Joey Dickinson
 * Matt Van Veldhuizen
 * Brandon Thomas
 * Randy Jaramillo
