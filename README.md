@@ -1,5 +1,7 @@
 # scot4-docs
 
+This repo contains the markdown and hugo configuration to build 
 
-This repo will hold all the documentation assets.
-Will use Hugo for static site generation
+https://sandialabs.github.io/scot4-docs/index.html
+
+

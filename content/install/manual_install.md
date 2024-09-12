@@ -206,3 +206,28 @@ $ helm upgrade --kubeconfig /etc/rancher/k3s/k3s.yaml \
 ```
 
 Congratulations, you have deployed SCOT4.  Proceed to [Configuration](/install/nextsteps.md) for the final setup of your SCOT instance.
+
+### Monitoring deployment
+
+It will take several minutes to download and spin up all the containers.  You can monitor progress with the following command:
+
+```
+watch kubectl -n scot4 get pods
+```
+
+Once the display lookes like below, you can <ctrl-c> and end the watch program.
+
+```
+Every 2.0s: kubectl -n scot4 get pods                   dev24su: Tue Sep 10 14:41:32 2024
+
+NAME                              READY   STATUS      RESTARTS   AGE
+scot4-api-9c4c58b67-j786h         1/1     Running     0          20m
+scot4-api-9c4c58b67-th4v4         1/1     Running     0          20m
+scot4-db-5494bb968c-7dj7s         1/1     Running     0          20m
+scot4-flair-795488b57d-jcjh2      2/2     Running     0          20m
+scot4-frontend-6f4cb87f57-cdpc7   1/1     Running     0          20m
+scot4-search-0                    1/1     Running     0          20m
+scot4-search-init-7llfw           0/1     Completed   0          20m
+```
+
+SCOT is now ready for you to use.

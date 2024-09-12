@@ -31,7 +31,7 @@ We use [k3s](https://k3s.io) as our Kubernetes orchestrater, and [Helm](https://
 
 SCOT4 requires a database to operate.  SCOT4 supports the same databases as [SQLAlchemy](https://sqlalchemy.org).  We have tested SCOT4 with [PostgreSQL](https://postgresql.org), [MySQL](https://mysql.com), and [SQLite](https://sqlite.org).  We have had reports of success with [Microsoft SQL Server](https://microsoft.com/en-us/sql-server/sql-server-downloads) as well.
 
-Prior to installing SCOT, be sure to have your database installed, configured, and to have credentials and permissions set to allow the creation of a database.  You will need to know the value of the `SQLALCHEMY_DATABASE_URI` environment variable. (See [SQLAlchemy Docs](https://docs.sqlalchemy.org/en/20/core/engines.html#backend-specific-urls) for details)
+SCOT comes with a mysql container that can be used or can be configured to use an existing database in your infrastructure.  If you choose to use and existing database, be sure to have your database installed, configured, and to have credentials and permissions set to allow the creation of a database.  You will need to know the value of the `SQLALCHEMY_DATABASE_URI` environment variable for your database. (See [SQLAlchemy Docs](https://docs.sqlalchemy.org/en/20/core/engines.html#backend-specific-urls) for details)
 
 ## Object Storage
 

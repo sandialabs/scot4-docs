@@ -12,7 +12,6 @@ weight = 3
 - SCOT should be available to Windows, MacOS, and Linux users.
 - SCOT should not add burdens to the analyst if at all possible.
 
-
 ## Architecture
 
 SCOT 4 has been designed from the start to be run in a collection of containers. We recommend Kubernetes to orchestrate this collection. 
@@ -39,6 +38,4 @@ SCOT supports using the following databases:
 ### Other Components
 * Airflow
 * Mojolicious / Minion
-
-
 
