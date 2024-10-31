@@ -6,6 +6,15 @@ weight = 9
 
 Flairing of user data is done by the Flair subsystem.  There is an administrative UI for the Flair subsystem.  You must log in as "flair-admin" using the password you set up at install time.
 
+You can retrieve the flair-admin password by logging into the SCOT host system 
+and running:
+
+```
+su - scot4
+kubectl -n scot4 get secrets scot4-flair-secrets -o jsonpath='{.data.S4FLAIR_ADMIN_PASS}' | base64 --decode; echo ""
+```
+
+
 This administrative UI allows you to: 
 * create, update, or delete the set of Regexes that the Flair system uses to identify Entities.
 * add an API key for something other than SCOT to use the Flair engine.

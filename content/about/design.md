@@ -18,6 +18,9 @@ SCOT 4 has been designed from the start to be run in a collection of containers.
 
 ## Tech Stack
 
+### Orchestration
+* k3s or other Kubernetes platform
+
 ### Database
 SCOT supports using the following databases:
 * MySQL

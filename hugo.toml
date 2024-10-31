@@ -1,4 +1,4 @@
-baseURL = 'https://sandialabs.github.io/scot4-docs/'
+baseURL = 'http://scot.baltig-pages.sandia.gov/scot4/scot4-docs/'
 languageCode = 'en-us'
 title = 'Sandia Cyber Omni Tracker'
 theme = 'hugo-theme-relearn'

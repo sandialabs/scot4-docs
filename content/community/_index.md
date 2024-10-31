@@ -11,3 +11,6 @@ description = "The SCOT community"
 
 [scot4all@sandia.gov](mailto:scot4all@sandia.gov)
 
+## Discussions
+
+[https://github.com/sandialabs/scot4/discussions](https://github.com/sandialabs/scot4/discussions)

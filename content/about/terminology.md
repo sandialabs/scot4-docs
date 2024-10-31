@@ -62,7 +62,7 @@ Dispatches are "raw" pieces of threat Intel.  They are generally automatically i
 Intel are promoted dispatches or other information that are pertinent and applicable to the team.  Storage of intel within SCOT allows the Flair Engine to cross reference included IOC's so that you can immediately see if an IOC is already present in your history or if it should appear in a future alert.  This linkage is very powerful way to provide the incident response analyst context.
 
 ## Product
-The refined work of your threat intel team.  Maybe it is a report about a threat actor or a piece of novel malware.  These are collected here and can be shared with over sight or other partners.
+The refined work of your threat intel team.  Maybe it is a report about a threat actor or a piece of novel malware.  These are collected here and can be shared with partners.
 
 ## Guides
 Guides act as mini instruction manuals to help your analysts know how to respond to incoming Alerts.  Guides can be linked to various items in SCOT and can provide the operating procedures you want the team to perform for various alerts.

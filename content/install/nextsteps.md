@@ -86,3 +86,7 @@ SCOT allows you to define where you will store file uploads.  The default method
 Default Permissions allow the admin to set a default set of Roles that are permitted to Read, Modify, and/or Delete SCOT objects.  This mainly applies to SCOT objects that are created by the system and not an individual user.  In the case of an object created by a user, that object inherits the roles from that user and is subject to further modification by the creating user.
 
 ![Default Permissions](/images/DefaultPerms.png)
+
+### Getting Data into SCOT
+
+Please see [Feeding](/administration/feeding) for insturctions on how to start inputing Alerts and Dispatches into SCOT.

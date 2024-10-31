@@ -100,7 +100,7 @@ scot4-search-init-7llfw           0/1     Completed   0          20m
 
 ```
 
-you can <ctrl-C> the watch program and begin to use SCOT.
+you can then end the watch program (ctrl-c) and begin to use SCOT.
 
 ### Should there be an Error
 
