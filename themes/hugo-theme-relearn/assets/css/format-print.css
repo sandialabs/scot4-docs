@@ -1,4 +1,4 @@
-{{- $assetBusting := partialCached "assetbusting.hugo" . -}}
+{{- $assetBusting := partialCached "assetbusting.gotmpl" . -}}
 @import "{{ printf "theme-%s.css%s" .themevariant.identifier $assetBusting }}";
 @import "{{ printf "chroma-%s.css%s" .themevariant.chroma $assetBusting }}";
 
@@ -137,7 +137,7 @@ h1 + .footline{
 #R-body .topbar-sidebar-divider {
     border-width: 0;
 }
-.term-list {
+article .R-taxonomy {
     display: none;
 }
 mark.search {
@@ -170,6 +170,6 @@ div.box > .box-content {
 article {
     break-before: page;
 }
-#R-body-inner > * > article:first-of-type {
+#R-body-inner article:first-of-type {
     break-before: avoid;
 }

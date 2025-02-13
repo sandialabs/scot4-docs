@@ -1,6 +1,2 @@
-{{- $assetsBuster := "" }}
-{{- $assetBusting := not site.Params.disableAssetsBusting }}
-{{- if $assetBusting }}
-  {{- $assetsBuster = printf "?%d" now.Unix }}
-{{- end }}
-{{- return $assetsBuster }}
+{{- warnf "DEPRECATED partial 'assetbusting.hugo' used, use 'assetbusting.gotmpl' instead; see https://mcshelby.github.io/hugo-theme-relearn/introduction/releasenotes/7/#7-0-0" }}
+{{- partial "assetbusting.gotmpl" . }}

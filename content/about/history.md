@@ -26,7 +26,7 @@ I'd like to personally thank and recognize the amazing engineers that I have had
 ### Scot 3 Engineers
 * Nick Peterson
 * Nick Georgieff
-* Bryce Montoya
+* Bryce Montano
 * Javier Chavez
 
 ### Scot 4 Engineers

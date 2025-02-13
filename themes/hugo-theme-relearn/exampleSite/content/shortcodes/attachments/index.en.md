@@ -1,4 +1,5 @@
 +++
+categories = ["howto", "reference"]
 description = "List of files attached to a page"
 hidden = "true"
 title = "Attachments"
@@ -54,7 +55,7 @@ While the examples are using shortcodes with named parameter you are free to als
 
 | Name        | Default         | Notes       |
 |-------------|-----------------|-------------|
-| **style**   | `transparent`   | The style scheme used for the box.<br><br>- by severity: `info`, `note`, `tip`, `warning`<br>- by brand color: `primary`, `secondary`, `accent`<br>- by color: `blue`, `green`, `grey`, `orange`, `red`<br>- by special color: `default`, `transparent`, `code` |
+| **style**   | `transparent`   | The style scheme used for the box.<br><br>- by severity: `caution`, `important`, `info`, `note`, `tip`, `warning`<br>- by brand color: `primary`, `secondary`, `accent`<br>- by color: `blue`, `cyan`, `green`, `grey`, `magenta`, `orange`, `red`<br>- by special color: `default`, `transparent`, `code`<br><br>You can also [define your own styles](shortcodes/notice#defining-own-styles). |
 | **color**   | see notes       | The [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) to be used. If not set, the chosen color depends on the **style**. Any given value will overwrite the default.<br><br>- for severity styles: a nice matching color for the severity<br>- for all other styles: the corresponding color |
 | **title**   | see notes       | Arbitrary text for the box title. Depending on the **style** there may be a default title. Any given value will overwrite the default.<br><br>- for severity styles: the matching title for the severity<br>- for all other styles: `Attachments`<br><br>If you want no title for a severity style, you have to set this parameter to `" "` (a non empty string filled with spaces) |
 | **icon**    | see notes       | [Font Awesome icon name](shortcodes/icon#finding-an-icon) set to the left of the title. Depending on the **style** there may be a default icon. Any given value will overwrite the default.<br><br>- for severity styles: a nice matching icon for the severity<br>- for all other styles: `paperclip`<br><br>If you want no icon, you have to set this parameter to `" "` (a non empty d with spaces) |
@@ -65,9 +66,9 @@ While the examples are using shortcodes with named parameter you are free to als
 
 ### Single language
 
-The shortcode lists files found in a specific folder. The name of the folder depends on your page type (either branch bundle, leaf bundle or page).
+The shortcode lists files found in a specific directory. The name of the directory depends on your page type (either branch bundle, leaf bundle or page).
 
-1. If your page is a leaf bundle, attachments must be placed in a nested `index.files` folder, accordingly.
+1. If your page is a leaf bundle, attachments must be placed in a nested `index.files` directory, accordingly.
 
     > * content
     >   * _index.md
@@ -76,7 +77,7 @@ The shortcode lists files found in a specific folder. The name of the folder dep
     >     * **index.files**
     >       * attachment.pdf
 
-2. If your page is a branch bundle, attachments must be placed in a nested `_index.files` folder, accordingly.
+2. If your page is a branch bundle, attachments must be placed in a nested `_index.files` directory, accordingly.
 
     {{% badge style="warning" title=" " %}}Warning{{% /badge %}} This is only available for Hugo < `0.112.0`
 
@@ -87,7 +88,7 @@ The shortcode lists files found in a specific folder. The name of the folder dep
     >     * **_index.files**
     >       * attachment.pdf
 
-3. For simple pages, attachments must be placed in a folder named like your page and ending with `.files`.
+3. For simple pages, attachments must be placed in a directory named like your page and ending with `.files`.
 
     {{% badge style="warning" title=" " %}}Warning{{% /badge %}} This is only available for Hugo < `0.112.0`
 
@@ -99,7 +100,7 @@ The shortcode lists files found in a specific folder. The name of the folder dep
 
 ### Multilingual
 
-Be aware that if you use a multilingual website, you will need to have as many folders as languages and the language code must be part of the folder name.
+Be aware that if you use a multilingual website, you will need to have as many directories as languages and the language code must be part of the directory name.
 
 Eg. for a site in English and Piratish:
 

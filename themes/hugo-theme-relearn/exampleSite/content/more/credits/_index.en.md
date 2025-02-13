@@ -1,5 +1,8 @@
 +++
+menuPre = "<i class='fa-fw fas fa-bullhorn'></i> "
 title = "Credits"
+[_build]
+  list = "never"
 +++
 
 ## Contributors
@@ -30,12 +33,14 @@ Many thanks to [Andy Miller](https://github.com/rhukster) for initially creating
 - [MathJax](https://mathjax.org/) - Beautiful math and chemical formulae in all browsers
 - [Mermaid](https://mermaid-js.github.io/mermaid) - Generation of diagram and flowchart from text in a similar manner as markdown
 - [Perfect Scrollbar](https://perfectscrollbar.com) - A minimalistic but perfect custom scrollbar plugin
+- [Roboto Flex](https://github.com/googlefonts/roboto-flex) - Google's most popular font gets customizable
 - [SwaggerUI](https://github.com/swagger-api/swagger-ui) - Generate beautiful documentation from a Swagger-compliant API
-- [WorkSans](https://weiweihuanghuang.github.io/Work-Sans/) - Work Sans is a 9 weight typeface family based loosely on early Grotesques
 
 ## Docs Dependencies
 
 - [github-buttons](https://github.com/buttons/github-buttons) - Unofficial github:buttons
+- [Octodex](https://octodex.github.com/) - Playground and home for all octocats
+- [Pixeden Club](https://www.pixeden.com/) - Inspired Design Resources for Creatives
 
 ## Tooling Dependencies
 
@@ -44,13 +49,14 @@ Many thanks to [Andy Miller](https://github.com/rhukster) for initially creating
   - https://github.com/actions/checkout
   - https://github.com/actions/setup-node
   - https://github.com/Akkjon/close-milestone
-  - https://github.com/andstor/file-reader-action
-  - https://github.com/ashley-taylor/regex-property-action
+  - https://github.com/azarc-io/regex-property-action
+  - https://github.com/guibranco/github-file-reader-action-v2
   - https://github.com/Kaven-Universe/github-action-current-date-time
-  - https://github.com/mingjun97/file-regex-replace
   - https://github.com/octokit/graphql-action
   - https://github.com/peaceiris/actions-gh-pages
   - https://github.com/peaceiris/actions-hugo
+  - https://github.com/ncipollo/release-action
+  - https://github.com/surahmansada/file-regex-replace
   - https://github.com/WyriHaximus/github-action-create-milestone
   - https://github.com/WyriHaximus/github-action-next-semvers
 - [gren](https://github.com/github-tools/github-release-notes) - A releasenotes generator for GitHub

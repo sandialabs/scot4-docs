@@ -1,5 +1,5 @@
 +++
-aliases = "/cont/icons"
+categories = ["howto", "reference"]
 description = "Nice icons for your page"
 title = "Icon"
 +++
@@ -11,8 +11,6 @@ The `icon` shortcode displays icons using the [Font Awesome](https://fontawesome
 {{% icon skull-crossbones %}}
 
 ## Usage
-
-While the examples are using shortcodes with positional parameter you are free to also call this shortcode from your own partials.
 
 {{< tabs groupid="shortcode-parameter">}}
 {{% tab title="shortcode" %}}

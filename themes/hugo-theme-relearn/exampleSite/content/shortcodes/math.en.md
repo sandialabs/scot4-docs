@@ -1,9 +1,12 @@
 +++
+categories = ["howto", "reference"]
 description = "Beautiful math and chemical formulae"
+frontmatter = ["customMathJaxURL", "math", "math.force", "mathJaxInitialize"]
+options = ["customMathJaxURL", "math", "math.force", "mathJaxInitialize"]
 title = "Math"
 +++
 
-The `math` shortcode generates beautiful formatted math and chemical formulae using the [MathJax](https://mathjax.org/) library.
+If this is not enough, the `math` shortcode helps you rendering math and chemical formulae using the [MathJax](https://mathjax.org/) library.
 
 {{< math align="center" >}}
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
@@ -11,17 +14,18 @@ $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \
 
 ## Usage
 
-While the examples are using shortcodes with named parameter it is recommended to use codefences instead. This is because more and more other software supports Math codefences (eg. GitHub) and so your markdown becomes more portable.
-
-You are free to also call this shortcode from your own partials.
-
-Math is also usable without enclosing it in a shortcode or codefence but [requires configuration](#passthrough-configuration) by you. In this case no parameter from the below table are available.
-
 {{< tabs groupid="shortcode-parameter">}}
+{{% tab title="passthrough" %}}
+
+````md
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+````
+
+{{% /tab %}}
 {{% tab title="codefence" %}}
 
 ````md
-```math { align="center" }
+```math {align="center"}
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 ```
 ````
@@ -47,52 +51,58 @@ $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \
 ````
 
 {{% /tab %}}
-{{% tab title="passthrough" %}}
-
-````md
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
-````
-
-{{% /tab %}}
 {{< /tabs >}}
+
+You can also use [pure Markdown](authoring/markdown#subscript-and-superscript) for writing simple math expressions.
+
+Passthrough syntax is only available by [further configuration](#passthrough-configuration) and has limited features as it does not provide any of the below parameter. Nevertheless, it is widely available in other Markdown parsers like GitHub and therefore is the recommend syntax for generating portable Markdown.
 
 ### Parameter
 
 | Name                  | Default          | Notes       |
 |-----------------------|------------------|-------------|
-| **align**             | `center`         | Allowed values are `left`, `center` or `right`. |
+| **align**             | `center`         | The vertical alignment.<br><br>Allowed values are `left`, `center` or `right`. |
 | _**&lt;content&gt;**_ | _&lt;empty&gt;_  | Your formulae. |
 
-## Configuration
+## Settings
 
-MathJax is configured with default settings but you can customize MathJax's default settings for all of your files through a JSON object in your `hugo.toml` or override these settings per page through your pages frontmatter.
+### Providing Initialization Options for the MathJax Library
 
-The JSON object of your `hugo.toml` / frontmatter is forwarded into MathJax's configuration object.
+{{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} {{% badge style="green" icon="fa-fw fab fa-markdown" title=" " %}}Front Matter{{% /badge %}} The MathJax library is configured with default settings for initialization.
 
-See [MathJax documentation](https://docs.mathjax.org/en/latest/options/index.html) for all allowed settings.
+You can overwrite the settings by providing a JSON object in `mathJaxInitialize`. See [MathJax's documentation](https://docs.mathjax.org/en/latest/options/index.html) for all allowed settings.
 
-### Global Configuration File
+Keep in mind that initialization settings of your pages front matter overwrite all settings of your configuration options.
 
-This example reflects the default configuration also used if you don't define `mathJaxInitialize`
-
-{{< multiconfig file=hugo >}}
-[params]
-  mathJaxInitialize = "{ \"tex\": { \"inlineMath\": [[\"\\(\", \"\\)\"], [\"$\", \"$\"]], displayMath: [[\"\\[\", \"\\]\"], [\"$$\", \"$$\"]] }, \"options\": { \"enableMenu\": false }"
+{{< multiconfig >}}
+mathJaxInitialize = '{ "chtml": { "displayAlign": "left" }, { "tex": { "inlineMath": [["\(", "\)"], ["@", "@"]], displayMath: [["\[", "\]"], ["@@", "@@"]] }, "options": { "enableMenu": false }'
 {{< /multiconfig >}}
 
-### Page's Frontmatter
+### Loading an External Version of the MathJax Library
 
-Usually you don't need to redefine the global initialization settings for a single page. But if you do, you have repeat all the values from your global configuration you want to keep for a single page as well.
+{{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} {{% badge style="green" icon="fa-fw fab fa-markdown" title=" " %}}Front Matter{{% /badge %}} The theme uses the shipped MathJax library by default.
 
-Eg. If you have redefined the delimiters to something exotic like `@` symbols in your global config, but want to additionally align your math to the left for a specific page, you have to put this to your frontmatter:
+In case you want do use a different version of the MathJax library but don't want to override the shipped version, you can set `customMathJaxURL` to the URL of the external MathJax library.
 
-{{< multiconfig fm=true >}}
-mathJaxInitialize = "{ \"chtml\": { \"displayAlign\": \"left\" }, { \"tex\": { \"inlineMath\": [[\"\\(\", \"\\)\"], [\"@\", \"@\"]], displayMath: [[\"\\[\", \"\\]\"], [\"@@\", \"@@\"]] }, \"options\": { \"enableMenu\": false }"
+{{< multiconfig >}}
+customMathJaxURL = 'https://unpkg.com/mathjax/es5/tex-mml-chtml.js'
+{{< /multiconfig >}}
+
+### Force Loading of the MathJax Library
+
+{{% badge style="cyan" icon="gears" title=" " %}}Option{{% /badge %}} {{% badge style="green" icon="fa-fw fab fa-markdown" title=" " %}}Front Matter{{% /badge %}} The MathJax library will be loaded if the page contains a `math` shortcode or codefence.
+
+You can force loading the MathJax library if no shortcode or codefence was used by setting `math=true`. If a shortcode or codefence was found, the option has no effect. This must be set in case you are using the [passthrough configuration](#passthrough-configuration) to render math.
+
+Instead of `math=true` you can also use the alias `math.force=true`.
+
+{{< multiconfig >}}
+math = true
 {{< /multiconfig >}}
 
 ### Passthrough Configuration
 
-You can use your math without enclosing it in a shortcode or codefence by using a [passthrough configuration](https://gohugo.io/content-management/mathematics/#step-1) in your `hugo.toml`:
+You can use your math without enclosing it in a shortcode or codefence by using a [passthrough configuration](https://gohugo.io/content-management/mathematics/#step-1)
 
 {{< multiconfig file=hugo >}}
 [markup]
@@ -105,82 +115,81 @@ You can use your math without enclosing it in a shortcode or codefence by using 
           block  = [['\[', '\]'], ['$$', '$$']]
 {{< /multiconfig >}}
 
-In this case you have to tell the theme that your page contains math by setting this in your page's frontmatter:
+In this case you have to [force load](#force-loading-of-the-mathjax-library) the MathJax library either in your `hugo.toml` or in your page's front matter as the theme doesn't know if math is used.
 
-{{< multiconfig fm=true >}}
-disableMathJax = false
-{{< /multiconfig >}}
-
-See the [example](#passthrough) on how it makes using math really easy.
+[See the example](#passthrough-block-math) on how a passthrough configurations makes using math really easy.
 
 ## Examples
 
-### Inline Math
+### Passthrough Block Math
+
+With [passthrough configuration](#passthrough-configuration) enabled you can just drop your math without enclosing it by shortcodes or codefences but no other [parameters](#parameter) are available.
+
+In this case you have to [force load](#force-loading-of-the-mathjax-library) the MathJax library by setting `math=true` either in your `hugo.toml` or in your page's front matter.
+
+In passthrough default configuration, block math is generated if you use two consecutive `$$` as a delimiter around your formulae.
 
 ````md
-Inline math is generated if you use a single `$` as a delimiter around your formulae: {{</* math */>}}$\sqrt{3}${{</* /math */>}}
+$$\left|
+\begin{array}{cc}
+a & b \\
+c & d
+\end{array}\right|$$
 ````
 
-Inline math is generated if you use a single `$` as a delimiter around your formulae: {{< math >}}$\sqrt{3}${{< /math >}}
+$$\left|
+\begin{array}{cc}
+a & b \\
+c & d
+\end{array}\right|$$
 
-### Blocklevel Math with Right Alignment
+### Passthrough Inline Math
+
+The same usage restrictions as of the [previous example](#passthrough-block-math) apply here as well.
+
+In passthrough default configuration, inline math is generated if you use a single `$` as a delimiter around your formulae.
 
 ````md
-If you delimit your formulae by two consecutive `$$` it generates a new block.
+Euclid already knew, $\sqrt{2}$ is irrational.
+````
 
+Euclid already knew, $\sqrt{2}$ is irrational.
+
+### Codefence Block Math with Right Alignment
+
+If you are using codefences, more [parameter](#parameter) are available. Your formulae still needs to be enclosed by `$` or `$$` as delimiters respectively.
+
+
+````md
+```math {align="right"}
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+```
+````
+
+````math {align="right"}
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+````
+
+### Shortcode Block Math with Right Alignment
+
+You can also use shortcode syntax. Your formulae still needs to be enclosed by `$` or `$$` as delimiters respectively.
+
+````md
 {{</* math align="right" */>}}
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 {{</* /math */>}}
 ````
 
-If you delimit your formulae by two consecutive `$$` it generates a new block.
-
 {{< math align="right" >}}
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 {{< /math >}}
 
-### Codefence
-
-You can also use codefences.
-
-````md
-```math
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
-```
-````
-
-````math
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
-````
-
-### Passthrough
-
-This works for block as well as inline math but is only available if you are using the [passthrough configuration](#passthrough-configuration).
-
-With passthrough configuration you can just drop your math without enclosed by shortcodes or codefences but no settings from the [parameter table](#parameter) are available.
-
-````md
-$$\left|
-\begin{array}{cc}
-a & b \\
-c & d
-\end{array}\right|$$
-````
-
-$$\left|
-\begin{array}{cc}
-a & b \\
-c & d
-\end{array}\right|$$
-
 ### Chemical Formulae
 
+The MathJax library can also be used for chemical formulae.
+
 ````md
-{{</* math */>}}
 $$\ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-}$$
-{{</* /math */>}}
 `````
 
-{{< math >}}
 $$\ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-}$$
-{{< /math >}}

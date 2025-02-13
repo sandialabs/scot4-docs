@@ -1,5 +1,6 @@
 +++
-description = "Synchr'nize select'n o' content 'n different tabbed views"
+categories = ["howto", "reference"]
+description = "Show rrrambl'n 'n tabbed views"
 title = "Tabs"
 +++
 {{< piratify >}}

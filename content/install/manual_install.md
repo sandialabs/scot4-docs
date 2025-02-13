@@ -215,7 +215,7 @@ It will take several minutes to download and spin up all the containers.  You ca
 watch kubectl -n scot4 get pods
 ```
 
-Once the display lookes like below, you can <ctrl-c> and end the watch program.
+Once the display lookes like below, you can ctrl-c and end the watch program.
 
 ```
 Every 2.0s: kubectl -n scot4 get pods                   dev24su: Tue Sep 10 14:41:32 2024
