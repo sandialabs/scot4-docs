@@ -23,6 +23,23 @@ Assuming that you select to use an external database, and either an external obj
 | 8 to 32          | 8         | 32 GB  |
 | 32+              | 16        | 64 GB  |
 
+### Disk Partitioning
+If you partition your disk space, it is important to allocate a large /var partition because that is where all persistent storage will reside.
+
+There are several factors that will impact how much disk space you will need. Primarily, disk usage is driven by the amount of data being input into SCOT.  Also, configuring SCOT to use an external database server will greatly reduce your long term storage needs.  Likewise, if you use S3 to store uploaded files, storage needs can be reduced.  
+
+In the table below, we characterize the minimum space needed based on usage patterns and assuming that you will collocate you database and file storage on this system.   When in doubt, give /var as much space as you can afford.
+
+| Usage            | GB of Disk | Notes |
+| Proof of Concept | 128 | Little automated input of data, few users |
+| Light Activity   | 256 | Automated feeds of 10 to 100 items a day, User input of 0 - 100 items a day  |
+| Medium Activity  | 512 | Automated feeds of 100-500 items a day, User input of 100 - 300 items a day |
+| Heavy Activity   | 1TB | Automated feeds of 500+ items a day, User input 300+ items a day |
+
+In the table above, automated items refer to Alertgroup and Dispatch items created and any other automated input of data you might do via API.  User input is primary the creation of Entries.  
+
+Keep in mind, that your usage patterns may allow you to use less or require more space.  If at possible, configure you system so that you may adjust the /var partition to meet your needs as they change with your usage.  When planning also consider that SCOT does not do any data reduction, so usage will grow over time.  In other words, data you input into SCOT will stay there unless you manually delete it.
+
 ## Kubernetes
 
 We use [k3s](https://k3s.io) as our Kubernetes orchestrater, and [Helm](https://helm.sh) to define and manage the application.  

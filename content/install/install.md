@@ -12,7 +12,28 @@ weight = 2
 You must create the scot4 user prior to cloning the repository.
 
 ```
-useradd -m -s /bin/bash -c "SCOT4 User" scot4
+$ sudo useradd -m -s /bin/bash -c "SCOT4 User" scot4
+```
+
+Set the scot4 user's password
+
+```
+$ sudo passwd scot4
+Changing password for user scot4.
+New password: 
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+```
+
+Add user to the proper group to allow sudo:
+
+RHEL:
+```
+$ sudo usermod -aG wheel scot4
+```
+Ubuntu:
+```
+$ sudo usermod -aG sudo scot4
 ```
 
 ### Clone Repository
@@ -20,18 +41,35 @@ useradd -m -s /bin/bash -c "SCOT4 User" scot4
 Clone the SCOT 4 repository as the scot4 user.
 
 ```
-su - scot4
-git clone https://github.com/sandialabs/scot4.git
+$ su - scot4
+$ pwd
+/home/scot4
+$ git clone https://github.com/sandialabs/scot4.git
 ```
+
+### Optional, but recommended
+
+If you are behind a web proxy, it is recommended that you set the following variables in the /etc/environment file.  This is so sudo will pick up these variables during the install.
+
+```
+http_proxy=http://your.proxy.here
+https_proxy=https://your.proxy.here
+no_proxy=localhost,yourservername,other,exceptions,list,here
+HTTP_PROXY=$http_proxy
+HTTPS_PROXY=$https_proxy
+NO_PROXY=$no_proxy
+```
+
+If you do not wish to alter you environment file, the install script will prompt you for your proxy settings.
 
 ### Run Helper
 
 The repository contains a helper script to automate most of the remaining tasks.
 
 ```
-su - scot4
-cd scot4
-./install.sh
+$ sudo su - scot4
+$ cd scot4
+$ sudo ./install.sh
 ```
 
 ### install.sh options
@@ -47,12 +85,13 @@ Here are the options supported:
                         database. You do not have to set this if you are using the 
                         default provided mysql database container.
 -e SURGE            set the surge limit for the API server. (Kubernetes)
--g                  pause script after displaying values of the script variables
 -h VERSION          set the version of Helm to download and install.  defaults to 
-                        version 3.14.3
+                        version 3.19.0
 -i IPADDR           set the IP address that the API server will listen to.  Defaults to
                         the first result of "ip -4 -o addr show scope global"
 -k TLS_KEY_FILE     the fully qualified filename for your TLS KEY File
+-m TRAEFIKVERSION   set the version of Traefik to download and install. defaults to 
+                        version 3.3.6
 -n NO_PROXY         the values to use for your NO_PROXY environment
 -P HTTPS_PROXY      the value to use for HTTPS_PROXY
 -p HTTP_PROXY       the value to use for HTTP_PROXY
@@ -81,7 +120,7 @@ Here are the options supported:
 Once the install program has completed, it will take a few minutes for the containers to download and spin up.  You can monitor progress with the following command:
 
 ```
- watch kubectl -n scot4 get pods
+$ watch kubectl -n scot4 get pods
 ```
 
 You will see the pods go through various init stages.  When the display looks like:
@@ -102,12 +141,23 @@ scot4-search-init-7llfw           0/1     Completed   0          20m
 
 you can then end the watch program (ctrl-c) and begin to use SCOT.
 
-### Should there be an Error
+### Should there be an installer error
+
+We have seen on rare occasions that the install of k3s can experience a problem.  When this occurs, you will most likely see this in the "testing k3s readiness" section of the installer.  Try the following steps:
+
+```
+$ sudo /usr/local/bin/k3s-uninstall.sh
+$ sudo rm -rf /etc/rancher/node
+$ sudo ./install.sh
+```
+
+### Should there be a Pod Error
 
 If a pod is displaying a backoff error condition, you can get more details about what is causing the problem by using the command:
 
 ```
-kubectl -n scot4 describe pod <pod-name-here> 
+$ kubectl -n scot4 describe pod <pod-name-here> 
 ```
 
 The most likely error would be some kind of failure to pull the container from the repository.  Make sure you are not having a network issue and retry the install once network issue has been resolved.
+

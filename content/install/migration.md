@@ -4,6 +4,8 @@ description = "Bringing forward your SCOT3 data"
 weight = 5
 +++
 
+# NOTE: Migration process is being revamped.  The process below is currently not working.  Please contact the team if you need to migrate data from a SCOT3 instance.
+
 If you are upgrading from SCOT 3 and wish to bring forward your data to SCOT 4, these are the steps to take.
 
 ## Backup SCOT 3

@@ -16,37 +16,9 @@ Deployment of SCOT requires the existence of a scot4 user.
 sudo useradd -m -s /bin/bash -c "SCOT4 User" scot4
 ```
 
-
-### Install K3s (as root)
-
-K3s is the Kubernetes implementation we use.  Here's how to install it.  
-
-```
-curl -sfLl https://get.k3s.io | INSTALL_K3S_EXEC="--prefer-bundled-bin --disable-cloud-controller" sh -
-```
-Go to [k3s](https://docs.k3s.io/installation) for detailed installation instructions.
-
-Using a different implementation of Kubernetes is an exercise left to the reader.  
-
-### Install Helm (as root)
-
-The installer downloads a specific version of Helm.  This is mainly because they don't have a *latest* alias on their downloads.  The Helper then extracts the tar file and installs the helm executable into the /usr/local/bin directory.
-
-```
-HELM_VERSION="v3.14.3"
-HELM_TAR="helm-$HELM_VERSION-linux-amd64.tar.gz"
-curl -sfl -o $HELM_TAR https://get.helm.sh/$HELM_TAR
-tar zxvf /tmp/$HELM_TAR -C /tmp
-mv /tmp/linux-amd64/helm /usr/local/bin/helm
-```
-
-Addition Helm installation information can be found [here](https://helm.sh/docs/intro/install/)
-
 ### TLS Certificates
 
-For deploying SCOT for testing purposes, you can use self signed certificates.  If you
-are planning on using SCOT in production, you will need a valid certificate for the URL
-that you are planning on serving SCOT from.  
+For deploying SCOT for testing purposes, you can use self signed certificates.  If you are planning on using SCOT in production, you will need a valid certificate for the URL that you are planning on serving SCOT from.  
 
 To create self-signed certificate for testing:
 
@@ -58,6 +30,51 @@ $ openssl genrsa -out $KEYFILENAME 2048
 $ openssl req -key $KEYFILENAME -new -out $CSRFILENAME
 $ openssl x509 -signkey $KEYFILENAME -in $CSRFILENAME -req -days 365 -out $CRTFILENAME
 ```
+
+Note: ensure that when prompted for the Common Name while generating the KEYFILE, that you enter the hostname for the server you are installing SCOT on. 
+
+### Disable Swap (as root)
+
+Disabling swap is recommended for k3s.
+
+```
+swapoff -a
+sed -i '/ swap / s/^/#/' /etc/fstab
+```
+
+### SELinux
+
+If you are running SELinux, which is default on RHEL like systems, you will need to put it into permissive mode.  This can be accomplished by entering `setenforce 0`.
+
+### Install K3s (as root)
+
+K3s is the Kubernetes implementation we use.  Here's how to install it.  
+
+Non-SELinux:
+```
+curl -sfLl https://get.k3s.io | INSTALL_K3S_EXEC="--prefer-bundled-bin --disable-cloud-controller" sh -
+```
+SELinux:
+```
+curl -sfLl https://get.k3s.io | INSTALL_K3S_EXEC="--prefer-bundled-bin --disable-cloud-controller --selinux" sh -
+```
+Go to [k3s](https://docs.k3s.io/installation) for detailed installation instructions.
+
+Using a different implementation of Kubernetes is an exercise left to the reader.  
+
+### Install Helm (as root)
+
+The installer downloads a specific version of Helm.  This is mainly because they don't have a *latest* alias on their downloads.  The Helper then extracts the tar file and installs the helm executable into the /usr/local/bin directory.
+
+```
+HELM_VERSION="v3.19.0"
+HELM_TAR="helm-$HELM_VERSION-linux-amd64.tar.gz"
+curl -sfl -o $HELM_TAR https://get.helm.sh/$HELM_TAR
+tar zxvf /tmp/$HELM_TAR -C /tmp
+mv /tmp/linux-amd64/helm /usr/local/bin/helm
+```
+
+Addition Helm installation information can be found [here](https://helm.sh/docs/intro/install/)
 
 ### IP Address
 
@@ -77,6 +94,7 @@ $ export NO_PROXY=localhost,127.0.0.1,.widget.com,172.16.,192.168.,*.local,.loca
 
 where $IPADDR is the IP address you discovered in the previous step.
 
+Go ahead and put those lines in your /etc/environment as well.
 
 ### Firewall Configuration (as root)
 
@@ -100,34 +118,6 @@ ufw allow from 10.43.0.0/16 to any
 
 *note*: a rule for port 6443 is not necessary for single node installs like SCOT.
 
-### Install Tab Completions (as scot4)
-
-The following commands creates aliases and tab completions to make working on the command line easier.
-
-```
-echo "alias k=kubectl" >> /home/scot4/.bashrc
-echo "source <(kubectl completion bash)" >> /home/scot4/.bashrc
-echo "complete -o default -F __start_kubectl k" >> /home/scot4/.bashrc
-echo "kubectl config set-context --current --namespace=scot4" >> /home/scot4/.bashrc
-```
-
-These are not absolutely necessary, but make administrating your Kubernetes system easier.
-
-### Disable Swap (as root)
-
-Disabling swap is recommended for k3s.
-
-```
-swapoff -a
-sed -i '/ swap / s/^/#/' /etc/fstab
-```
-
-### Create a scot4 namespace in Kubernetes 
-
-```
-su -c 'kubectl create ns scot4' scot4
-```
-
 ### Ensure that PyYAML is not Ancient (as scot4)
 
 The helper then makes sure the major version number of PyYAML is at least 5.  If it is older, then pip is used to upgrade the module.
@@ -142,6 +132,28 @@ if [ "$PYYAMLMAJ" -lt "5" ]; then
 fi
 ```
 
+### Install Tab Completions (as scot4)
+
+The following commands creates aliases and tab completions to make working on the command line easier.
+
+```
+echo "alias k=kubectl" >> /home/scot4/.bashrc
+echo "source <(kubectl completion bash)" >> /home/scot4/.bashrc
+echo "complete -o default -F __start_kubectl k" >> /home/scot4/.bashrc
+echo "kubectl config set-context --current --namespace=scot4" >> /home/scot4/.bashrc
+```
+
+These are not absolutely necessary, but make administrating your Kubernetes system easier.
+
+### Create a scot4 namespace in Kubernetes 
+
+```
+su -c 'kubectl create ns scot4' scot4
+```
+
+If you receive an error creating this namespace, do not proceed until resolved.
+
+
 ### Merge Secrets into Kubernetes (as scot4)
 
 First, run the program `auto_gen_secrets.py` in the root of the repository.  This script generates secrets necessary for operation and creates the necessary files for the merge.
@@ -151,6 +163,20 @@ Now that `auto_gen_secrets.yaml` and `auto_gen_flair_secrets.yaml` have been cre
 ```
 kubectl -n scot4 apply -f scot4-chart/auto_gen_secrets.yaml
 kubectl -n scot4 apply -f scot4-chart/auto_gen_flair_secrets.yaml
+```
+
+Again, do not proceed until any errors are resolved.
+
+### Merge Repository Secrets
+
+If you are using a custom repository, you will need to merge those secrets now.  Users pulling from GitHub may skip this step.
+
+```
+kubectl create secret docker-registry scot4-image-pull-secret \
+    --docker-server $REPO_HOST \
+    --docker-username $USER \
+    --docker-password $PASS \
+    --namespace $NS
 ```
 
 ### Update values.yaml (as scot4)
@@ -176,6 +202,8 @@ scot4.frontend.vueAppApiBase
 
 scot4.flair.frontendAccessibleURL
 : set to the same as scot4.api.externalApiUri
+
+You may also look at the script, `./inst_func/inst_update_values.sh` for ways to update the OS_values.yaml.
 
 ### Run Helm to Deploy (as scot4)
 

@@ -12,6 +12,8 @@ The Incident Response (IR) workflow begins with triaging the Alerts Queue.  Aler
 
 ![Alertgroup List](/images/Alertgroups.png)
 
+Each team using SCOT can develop their own stategy for processing the Alertgroup queue, as SCOT attempts to stay out of your way and does not proscribe a "one true way" of doing IR.  Below, however, is an example of a way that works for us.
+
 The incident response team (IRT) has one or more "Incident Handers" (IH) defined in the IH calendar (/#/team/calendar).  IH's primary role is to examine and triage this incoming flow of alerts.  Many alerts are easily recognized as normal or non-threatening.  The IH can rapidly close these alerts as a signal to the rest of the team not to waste their time on them.  
 
 Some alerts require more scrutiny though.  One option is to leave an Alert "open" so that other members of the team or the other IHs can look at the alert while further investigation of the alert is on-going.  A possibly better option, is to to promote the Alert to an Event.  This promotion is a signal to the IRT that we have something that needs the team's help in investigating.
