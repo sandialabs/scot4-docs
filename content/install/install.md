@@ -47,6 +47,23 @@ $ pwd
 $ git clone https://github.com/sandialabs/scot4.git
 ```
 
+## Install K3s (as root)
+
+K3s is the Kubernetes implementation we use.  Here's how to install it.  
+
+Non-SELinux:
+```
+curl -sfLl https://get.k3s.io | INSTALL_K3S_EXEC="--prefer-bundled-bin --disable-cloud-controller" sh -
+```
+SELinux:
+```
+curl -sfLl https://get.k3s.io | INSTALL_K3S_EXEC="--prefer-bundled-bin --disable-cloud-controller --selinux" sh -
+```
+Go to [k3s](https://docs.k3s.io/installation) for detailed installation instructions.
+
+Using a different implementation of Kubernetes is an exercise left to the reader.
+
+
 ### Optional, but recommended
 
 If you are behind a web proxy, it is recommended that you set the following variables in the /etc/environment file.  This is so sudo will pick up these variables during the install.
